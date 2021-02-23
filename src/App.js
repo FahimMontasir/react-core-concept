@@ -1,25 +1,74 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+
 
 function App() {
+  const animalArr = ["penguin", "deer", "dino","tiger", "camel","pamel", 'chemel', "damel", "memel", "hemel" ]
+const products = [{name:"photo shop", price:"400 dollar"}, {name:"illustrator", price:"399 dollar"}, {name:"premier pro", price:"200 dollar"}, {name:"adobe in design",price:"300 dollar"} ]
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Counter></Counter>
+        <ul>
+          {
+            animalArr.map(animal => <li>{animal}</li>)
+          }
+        </ul>
+        {
+          products.map(pd => <Product product ={pd} ></Product>)
+        }
+        <Animal name="Tiger" danger="true"></Animal>
+        <Animal name={animalArr[0]} danger="false"></Animal>
+        <Animal name={animalArr[1]} danger="false"></Animal>
       </header>
     </div>
   );
 }
 
+const Animal = (props) => {
+  const myStyle = {
+    color: "red",
+    border: "2px solid gold",
+    margin: "3px",
+    width: "300px"
+  }
+return (
+ <div style= {myStyle}>
+   <h4>Name: {props.name}</h4>
+   <p>isDanger: {props.danger}</p>
+ </div>
+)
+}
+function Product(props) {
+  const {name, price} = props.product;
+  const stylePro = {
+    backgroundColor: "grey",
+    height:"300px",
+    width: "200px",
+    margin:"20px"
+  }
+  return (
+    <div style={stylePro}>
+      <h1>{name}</h1>
+      <h2>{price}</h2>
+      <button>buy now</button>
+    </div>
+
+  )
+}
+function Counter() {
+  const [count, setCount] = useState(10);
+  const handleIncrease = () =>{
+    const newCount = count +1;
+    setCount(newCount);
+  };
+  return (
+    <div>
+      <h1>count: {count}</h1>
+      <button onClick= {handleIncrease}>Increase</button>
+      <button onClick = {() => setCount(count -1)}>Decrease</button>
+    </div>
+  )
+}
 export default App;
